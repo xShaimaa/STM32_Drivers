@@ -6,12 +6,13 @@
 #ifndef PB_INTERFACE_H
 #define PB_INTERFACE_H
 
+/* data type to hold the push button state */
 typedef enum{	
-		Released,
-		Detected, 
-		PreReleased,
-		Update		
-}PB_states_t;
+		PRE_PRESSED,
+		PRESSED,
+		PRE_RELEASED,
+		RELEASED		
+}PB_State_t;
 
 
 /* public functions prototypes */
@@ -28,14 +29,14 @@ void PB_voidInit();
 * Parameters  : none
 * Return type : void                                                                           
 *******************************************************************************/
-void PB_voidCheckPB(void);
+void PB_voidUpdate(void);
 
 /******************************************************************************
 * Description : check if a button is pressed
 * Parameters  : none
-* Return type : u8(the push button voltage)                                                                         
+* Return type : PB_states_t(the push button state)                                                                         
 *******************************************************************************/
-u8 PB_u8State(void);
+PB_states_t PB_GetState(void);
 
 
 #endif

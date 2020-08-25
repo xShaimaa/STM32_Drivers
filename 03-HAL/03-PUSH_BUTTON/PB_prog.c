@@ -15,82 +15,60 @@
 #include "PB_interface.h"
 
 
-/* data type to hold the push button state */
-typedef enum{	
-		Released,
-		Detected, 
-		PreReleased,
-		Update		
-}PB_states_t;
+/* struct to hold the push button data */
+typedef struct
+{
+    u8 samples[2];
+    PB_State_t state;
+}PB_Info_t;
 
-/* variables */
-PB_states_t PB_State = Waiting;
-u8 Temp_Press = PB_RELEASE_VOLT;
-u8 PB_Press = PB_RELEASE_VOLT;
-u8 PB_Count = 0;
+PB_Info_t PB_Info; 
 
 /* configuring Push Button as input */
 void PB_voidInit()
 {
-	MGPIO_VoidSetPinDir(PB_PORT, PB_PIN, PB_INPUT_MODE);
-	GPIOA_BRR = (1<<1);	//pull down
+	#if (PB_INPUT_MODE == INTERNAL_PULL_UP) || (PB_INPUT_MODE == INTERNAL_PULL_DOWN)
+		GPIO_voidSetPinDir(PB_PORT, PB_PIN, INPUT_PULL_UP_DOWN);
+		
+		#if	  (PB_INPUT_MODE == INTERNAL_PULL_UP)
+		GPIO_voidSetPullMode(PB_PORT, PB_PIN, PULL_UP);
+		
+		#elif (PB_INPUT_MODE == INTERNAL_PULL_DOWN)
+		GPIO_voidSetPullMode(PB_PORT, PB_PIN, PULL_DOWN);
+		
+	#endif
+	
+	#if (PB_INPUT_MODE == EXTERNAL_PULL_UP) || (PB_INPUT_MODE == EXTERNAL_PULL_DOWN)
+		GPIO_voidSetPinDir(PB_PORT, PB_PIN, INPUT_FLOATING);
+	#endif	
+	
+	/* setting the initial state */	
+	PB_Info.State = RELEASED; 
 }
 
 
-
-void PB_voidCheckPB(void)
+void PB_voidUpdate(void)
 {	
 	switch(PB_State)
 	{
-		case Released 	 :
-						if(PB_PIN == PB_PRESS_VOLT)
-						{
-						 	PB_State = Detected;
-							PB_Count = 0;
-							Temp_Press = PB_PRESS_VOLT;
-						}
-						break;
+		case RELEASED:
+						
 		
-		case Detected 	 :
-						if(Temp_Press = PB_PRESS_VOLT)
-						{
-						 	PB_Count ++;
-							if(PB_Count > PB_COUNT_CHECK)
-							{
-								PB_State = PreReleased;
-							}
-						}
-						else
-						{
-							PB_State = Released;
-						}
-						break;
+		case PRE_PRESSED:
+						
 		
-		case PreReleased :
-						if(PB_PIN == PB_RELEASE_VOLT)
-						{
-						 	PB_State = Update;
-						}
-						break;
+		case PRESSED:
+						
 		
-		case Update 	 :
-						PB_Press = Temp_Press;        
-						PB_State = Waiting;     
-						PB_Count = 0;           
-						Temp_Press = PB_RELEASE_VOLT;  
-						break;        
+		case PRE_RELEASED:
 		
-		default 		 : 
-						PB_State = Waiting;
-						PB_Count = 0;
-						Temp_Press = PB_RELEASE_VOLT;
-						PB_Press = PB_RELEASE_VOLT;
-						break;
+		default: 
+					
 	}
 }
 
 
-u8 PB_u8State(void)
+PB_states_t PB_GetState(void)
 {
-	return(Temp_Press);
+	return (PB_info.state) ;
 }

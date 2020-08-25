@@ -7,11 +7,12 @@
 #define PB_CONFIG_H
 
 
-/* PB INPUT Modes 				 */
-/* Options : INPUT_ANALOG
-			 INPUT_FLOATING
-			 INPUT_PULL_UP_DOWN */
-#define PB_INPUT_MODE		INPUT_PULL_UP_DOWN
+/* 	PB INPUT Modes 				 		   */
+/* 	Options : 			INTERNAL_PULL_UP
+			 			EXTERNAL_PULL_UP
+			 			INTERNAL_PULL_DOWN
+			 			EXTERNAL_PULL_DOWN */
+#define PB_INPUT_MODE	INTERNAL_PULL_UP
 
 /* Push Button  PORT	*/
 /* Options :	GPIOA
