@@ -18,21 +18,11 @@
 /* Options :	GPIOA
  	 	 	 	GPIOB
  	 	 	 	GPIOC   */
-#define PB_PORT PORTB
+#define PB_PORT GPIOA
 
 /* Push Button  PIN			  */
 /* Options :	PIN0 -> PIN15 */
 #define PB_PIN  PIN0
-
-#define PB_PRESS_VOLT	1
-#define PB_RELEASE_VOLT	0
-
-
-
-/* couter to check the button state */
-#define PB_COUNT_CHECK 10
-
-
 
 
 

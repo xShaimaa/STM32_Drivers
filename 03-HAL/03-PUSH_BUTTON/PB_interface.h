@@ -36,7 +36,7 @@ void PB_voidUpdate(void);
 * Parameters  : none
 * Return type : PB_states_t(the push button state)                                                                         
 *******************************************************************************/
-PB_states_t PB_GetState(void);
+PB_State_t PB_GetState(void);
 
 
 #endif

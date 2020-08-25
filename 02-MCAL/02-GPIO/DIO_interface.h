@@ -11,9 +11,9 @@
 #define GPIO_LOW  0
 
 /* GPIO PORTs */
-#define	GPIOA  0
-#define	GPIOB  1
-#define	GPIOC  2
+#define	GPIOA  2
+#define	GPIOB  3
+#define	GPIOC  4
 
 /* GPIO PINs  */
 #define PIN0   0
@@ -54,6 +54,10 @@
 #define OUTPUT_SPEED_50MHZ_AFPP		0b1011
 #define OUTPUT_SPEED_50MHZ_AFOD		0b1111
 
+/* GPIO PULL Modes */
+#define PULL_UP		0
+#define PULL_DOWN	1
+
 /* public functions prototypes */
 
 /******************************************************************************
@@ -69,6 +73,13 @@ void MGPIO_VoidSetPinDir(u8 Copy_u8PORT, u8 Copy_u8PIN, u8 Copy_u8Mode);
 * Return type : void
 ******************************************************************************/
 void MGPIO_VoidSetPinVal(u8 Copy_u8PORT, u8 Copy_u8PIN, u8 Copy_u8Val);
+
+/******************************************************************************
+* Description : setting the PIN PULL Mode
+* Parameters  : PORT (GPIOA -> C) - PIN (PIN0 -> 15) - PULL Mode(PULL_UP, PULL_DOWN) 
+* Return type : void
+******************************************************************************/
+void GPIO_voidSetPullMode (u8 Copy_u8PORT, u8 Copy_u8PIN, u8 Copy_u8PullMode);
 
 /******************************************************************************
 * Description : setting multiple Pins' value
@@ -90,5 +101,13 @@ void MGPIO_VoidTogPin(u8 Copy_u8PORT, u8 Copy_u8PIN);
 * Return type : u8 (0 - 1)
 ******************************************************************************/
 u8 MGPIO_u8GetPinVal(u8 Copy_u8PORT, u8 Copy_u8PIN);
+
+/******************************************************************************
+* Description : locking a pin's configuration
+* Parameters  : PORT (GPIOA -> C) - PIN (PIN0 -> 15)
+* Return type : void
+******************************************************************************/
+void MGPIO_VoidLockPin(u8 Copy_u8PORT, u8 Copy_u8PIN);
+
 
 #endif

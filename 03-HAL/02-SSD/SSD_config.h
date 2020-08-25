@@ -26,7 +26,7 @@
 #define SSD_PORT GPIOA
 
 /* SSD PINs					 */
-/* Options : from PIN0 -> 15 */
+/* Options : from PIN0 -> 15 in a sequence */
 #define SSD_A	 PIN0
 #define SSD_B 	 PIN1
 #define SSD_C 	 PIN2

@@ -18,7 +18,7 @@
 * Parameters  : none
 * Return type : void
 ******************************************************************************/
-void LED_voidInit();
+void LED_voidInit(u8 Copy_u8PORT, u8 Copy_u8PIN);
 
 /******************************************************************************
 * Description : control the state of an LED

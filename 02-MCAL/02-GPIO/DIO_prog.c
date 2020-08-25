@@ -68,39 +68,79 @@ void MGPIO_VoidSetPinVal(u8 Copy_u8PORT, u8 Copy_u8PIN, u8 Copy_u8Val)
 		case GPIOA :
 					if(Copy_u8Val == GPIO_HIGH)
 					{
-						SET_BIT(GPIOA_ODR, Copy_u8PIN);
+						GPIOA_BSRR = (1 << Copy_u8PIN);
+
 					}
 					else if(Copy_u8Val == GPIO_LOW)
 					{
-						CLR_BIT(GPIOA_ODR, Copy_u8PIN);
+						GPIOA_BRR = (1 << Copy_u8PIN);
 					}
 					break;
 					
 		case GPIOB :
 					if(Copy_u8Val == GPIO_HIGH)
 					{
-						SET_BIT(GPIOB_ODR, Copy_u8PIN);
+						GPIOB_BSRR = (1 << Copy_u8PIN);
 					}
 					else if(Copy_u8Val == GPIO_LOW)
 					{
-						CLR_BIT(GPIOB_ODR, Copy_u8PIN);
+						GPIOB_BRR = (1 << Copy_u8PIN);
 					}
 					break;
 					
 		case GPIOC :
 					if(Copy_u8Val == GPIO_HIGH)
 					{
-						SET_BIT(GPIOC_ODR, Copy_u8PIN);
+						GPIOC_BSRR = (1 << Copy_u8PIN);
 					}
 					else if(Copy_u8Val == GPIO_LOW)
 					{
-						CLR_BIT(GPIOC_ODR, Copy_u8PIN);
+						GPIOC_BRR = (1 << Copy_u8PIN);
 					}
 					break;
 					
 		default	:	break;
 	}
 }
+
+/* setting the pin pull mode*/
+void GPIO_voidSetPullMode (u8 Copy_u8PORT, u8 Copy_u8PIN, u8 Copy_u8PullMode)
+{
+	switch (Copy_u8PORT) {
+		case GPIOA :
+			if(Copy_u8PullMode == PULL_UP){
+				GPIOA_BSRR = (1 << Copy_u8PIN);
+			}
+			
+			else if (Copy_u8PullMode == PULL_DOWN ){
+				GPIOA_BRR = (1 << Copy_u8PIN);
+			}
+			break ;
+		
+		case GPIOB :
+			if      (Copy_u8PullMode == PULL_UP){
+				GPIOB_BSRR = (1 << Copy_u8PIN);
+			}
+			
+			else if (Copy_u8PullMode == PULL_DOWN ){
+				GPIOB_BRR  = (1 << Copy_u8PIN);
+			}
+			break ;
+			
+		case GPIOC :
+			if      (Copy_u8PullMode == PULL_UP){
+				GPIOC_BSRR = (1 << Copy_u8PIN);
+			}
+			
+			else if (Copy_u8PullMode == PULL_DOWN ){
+				GPIOC_BRR = (1 << Copy_u8PIN);
+			}
+			break ;
+			
+		default    :  break ;
+	}
+}
+
 
 /* setting multiple pins value */
 void MGPIO_voidSetPinsFrom(u8 Copy_u8PORT, u8 Copy_u8PIN, u8 Copy_u8Val)
@@ -158,3 +198,10 @@ u8 MGPIO_u8GetPinVal(u8 Copy_u8PORT, u8 Copy_u8PIN)
 	}
 	return LOC_u8Result;
 }
+
+/* locking the config */
+/*void MGPIO_VoidLockPin(u8 Copy_u8PORT, u8 Copy_u8PIN)
+{
+	
+}*/
+

@@ -20,10 +20,13 @@ u8 i = 0;
 /* initializing the SSD as output */
 void SSD_voidInit()
 {
+	/* initializing the clock for the corresponding port */
 	RCC_voidEnableClock(RCC_APB2, SSD_PORT);
+	/* setting the SSD pins as output, and setting the initial value as low */
 	for(i = 0; i<8; i++)
 	{
 		MGPIO_VoidSetPinDir(SSD_PORT, SSD_Pins[i], SSD_OUTPUT_MODE);
+		MGPIO_VoidSetPinVal(SSD_PORT, SSD_Pins[i], SSD_COM);
 	}
 }
 
