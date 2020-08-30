@@ -23,13 +23,13 @@ typedef struct
 
 /* Global variables */
 PB_Info_t  PB_info ;
-PB_State_t PB_State;
 
 /* configuring Push Button as input */
 void PB_voidInit()
 {
 	/* initializing the clock for the corresponding port */
 	RCC_voidEnableClock(RCC_APB2, PB_PORT);
+	
 	/* stting the pull configurations */
 	#if (PB_INPUT_MODE == INTERNAL_PULL_UP) || (PB_INPUT_MODE == INTERNAL_PULL_DOWN)
 		MGPIO_VoidSetPinDir(PB_PORT, PB_PIN, INPUT_PULL_UP_DOWN);
@@ -50,11 +50,11 @@ void PB_voidInit()
 	
 	/* setting the voltage configurations passed on pull type*/
 	#if   (PB_INPUT_MODE == INTERNAL_PULL_UP ) || (PB_INPUT_MODE == EXTERNAL_PULL_UP )
-		#define PB_PRESS_VOLT   0
+		#define PB_PRESS_VOLT    0
 		#define PB_RELEASE_VOLT  1
 
 	#elif (PB_INPUT_MODE == INTERNAL_PULL_DOWN) || (PB_INPUT_MODE == EXTERNAL_PULL_DOWN)
-		#define PB_PRESS_VOLT   1
+		#define PB_PRESS_VOLT    1
 		#define PB_RELEASE_VOLT  0
 	#endif
 
@@ -69,8 +69,10 @@ void PB_voidUpdate(void)
 	PB_info.samples[0] = PB_info.samples[1];
 	PB_info.samples[1] = MGPIO_u8GetPinVal(PB_PORT, PB_PIN);
 	
-	switch(PB_State)
+	/* scanning the push button and determinig the state */
+	switch(PB_info.state)
 	{
+		/* button is not pressed yet */
 		case RELEASED:
 					if((PB_info.samples[0] == PB_PRESS_VOLT) &&
 				       (PB_info.samples[1] == PB_PRESS_VOLT))
@@ -79,6 +81,7 @@ void PB_voidUpdate(void)
 					}
 					break;
 		
+		/* button starts to be pressed*/
 		case PRE_PRESSED:
 					if(PB_info.samples[1] == PB_PRESS_VOLT)
 					{
@@ -86,6 +89,7 @@ void PB_voidUpdate(void)
 					}
 					break;	
 		
+		/* button is being pressed, but not yet released */
 		case PRESSED:
 					if((PB_info.samples[0] == PB_RELEASE_VOLT) &&
 				       (PB_info.samples[1] == PB_RELEASE_VOLT))
@@ -94,10 +98,11 @@ void PB_voidUpdate(void)
 					}
 					break;
 		
+		/* button is pressed and released */
 		case PRE_RELEASED:
 					if(PB_info.samples[1] == PB_RELEASE_VOLT)
 					{
-						PB_info.state = PRESSED;
+						PB_info.state = RELEASED;
 					}
 					break;	
 		
@@ -106,7 +111,7 @@ void PB_voidUpdate(void)
 	}
 }
 
-
+/* return the push button current state */
 PB_State_t PB_GetState(void)
 {
 	return (PB_info.state);
