@@ -18,11 +18,17 @@ void HLEDMRX_voidInit(void);
 
 /******************************************************************************
 * Description : Displaying data on the LED Matrix
-* Parameters  : void
+* Parameters  : array of the columns values
 * Return type : void
 ******************************************************************************/
 void HLEDMRX_voidDisplay(u8 *Copy_u8Data);
 
+/******************************************************************************
+* Description : swaping data on the LED Matrix
+* Parameters  : array of columns values, columns number
+* Return type : void
+******************************************************************************/
+void HLEDMRX_voidSwap(u8 *Copy_u8arr, u8 Copy_u8ColsNum);
 
 
 

@@ -50,6 +50,18 @@ void HLEDMRX_voidDisplay(u8 *Copy_u8Data)
 		}
 }
 
+/* swaping data on the LED Matrix */
+void HLEDMRX_voidSwap(u8 *Copy_u8arr, u8 Copy_u8ColsNum)
+{
+	for(u8 i = 0; i<Copy_u8ColsNum; i++)
+	{
+		Copy_u8arr[i] = Copy_u8arr[i+1];
+		HLEDMRX_voidDisplay(Copy_u8arr);
+		MSTK_voidSetBusyWait(250);
+	}
+}
+
+
 static void DisableAllCols(void)
 {
 	/* disable all columns, set to high */

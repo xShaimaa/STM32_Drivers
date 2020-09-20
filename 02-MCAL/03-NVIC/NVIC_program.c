@@ -17,7 +17,7 @@ void MNVIC_voidInit(void)
 }
 
 /* enabling the interrupt */
-void MNVIC_voidEnableIRQ(IRQ_t Copy_u8IRQName)
+void MNVIC_voidEnableIRQ(u8 Copy_u8IRQName)
 {
 	if (Copy_u8IRQName <= 31)
 	{
@@ -32,7 +32,7 @@ void MNVIC_voidEnableIRQ(IRQ_t Copy_u8IRQName)
 }
 
 /* disabling the interrupt */
-void MNVIC_voidDisableIRQ(IRQ_t Copy_u8IRQName)
+void MNVIC_voidDisableIRQ(u8 Copy_u8IRQName)
 {
 	if (Copy_u8IRQName <= 31)
 	{
@@ -47,7 +47,7 @@ void MNVIC_voidDisableIRQ(IRQ_t Copy_u8IRQName)
 }
 
 /* setting the interrupt's pending flag */
-void MNVIC_voidSetPendingFlag(IRQ_t Copy_u8IRQName)
+void MNVIC_voidSetPendingFlag(u8 Copy_u8IRQName)
 {
 	if (Copy_u8IRQName <= 31)
 	{
@@ -62,7 +62,7 @@ void MNVIC_voidSetPendingFlag(IRQ_t Copy_u8IRQName)
 }
 
 /* clearing the interrupt's pending flag */
-void MNVIC_voidClrPendingFlag(IRQ_t Copy_u8IRQName)
+void MNVIC_voidClrPendingFlag(u8 Copy_u8IRQName)
 {
 	if (Copy_u8IRQName <= 31)
 	{
@@ -78,7 +78,7 @@ void MNVIC_voidClrPendingFlag(IRQ_t Copy_u8IRQName)
 
 
 /* getting the active flag statues */
-u8 MNVIC_u8GetActiveFlag(IRQ_t Copy_u8IRQName)
+u8 MNVIC_u8GetActiveFlag(u8 Copy_u8IRQName)
 {
 	u8 Local_u8Result;
 	
@@ -97,7 +97,7 @@ u8 MNVIC_u8GetActiveFlag(IRQ_t Copy_u8IRQName)
 }
 
 /* setting the interrupt priority */
-void MNVIC_voidSetPriorty(IRQ_t Copy_u8IRQName, u8 Copy_u8IRQPriority)
+void MNVIC_voidSetPriorty(u8 Copy_u8IRQName, u8 Copy_u8IRQPriority)
 {
 	if(Copy_u8IRQName < 60)
 	{
