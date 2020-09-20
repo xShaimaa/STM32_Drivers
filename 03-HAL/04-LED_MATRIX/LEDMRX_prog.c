@@ -6,7 +6,6 @@
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
 
-#include "RCC_interface.h"
 #include "DIO_interface.h"
 
 #include "LEDMRX_private.h"
@@ -41,10 +40,13 @@ void HLEDMRX_voidDisplay(u8 *Copy_u8Data)
 			/* for column i */
 			/* disable all columns, set to high */
 			DisableAllCols();
+			
 			/* writting to one row at a time */
 			SetRowVal(Copy_u8Data[i]);
+			
 			/* enable one column at a time, setting it to low */
 			MGPIO_VoidSetPinVal(LEDMRX_COLS_PORT[i], LEDMRX_COLS_PINS[i], GPIO_LOW);
+			
 			/* setting a 2 ms delay */
 			MSTK_voidSetBusyWait(2);
 		}
@@ -55,7 +57,10 @@ void HLEDMRX_voidSwap(u8 *Copy_u8arr, u8 Copy_u8ColsNum)
 {
 	for(u8 i = 0; i<Copy_u8ColsNum; i++)
 	{
+		/* shifting to the next location */
 		Copy_u8arr[i] = Copy_u8arr[i+1];
+		
+		/* display the new location */
 		HLEDMRX_voidDisplay(Copy_u8arr);
 		MSTK_voidSetBusyWait(250);
 	}
