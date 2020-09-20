@@ -8,7 +8,7 @@
 
 /* defining the system clock */
 #ifndef SYSTEM_CLOCK
-#define SYSTEM_CLOCK 8000000u16
+#define SYSTEM_CLOCK 8000000
 #endif
 
 /* public functions prototypes */
@@ -18,6 +18,6 @@
 * Parameters  : Copy_u32Time (the required delay in micro seconds)
 * Return type : void
 ******************************************************************************/
-void delay_ms(u32 Copy_u32Time) ;
+void delay_us(u32 Copy_u32Time) ;
 
 #endif
